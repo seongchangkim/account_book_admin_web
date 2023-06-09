@@ -1,0 +1,64 @@
+<div class="w-full m-5">
+    <div class="sm:max-w-lg md:max-w-3xl lg:max-w-2xl xl:max-w-6xl" enctype="multipart/form-data">
+        <div class="text-lg font-bold">
+            회원 상세보기
+        </div>
+        <div class="w-full my-5">
+            <div class="flex justify-center mr-2">
+                <label
+                    for="profileUrl"
+                    class="relative cursor-default rounded-md"
+                >
+                    <img
+                        class="w-32 h-32 rounded-full"
+                        :src="getImageUrl(user.profileUrl)"
+                    /> 
+
+                    <input
+                        id="profileUrl"
+                        name="profileUrl"
+                        type="file"
+                        class="sr-only"
+                        @change="onChangeProfileImage($event)"
+                    />
+                </label>
+             </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                    이름
+                </label>
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-grey-200 hover:border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="name" name="name" v-model="user.name" autocomplete="on">
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="tel">
+                    전화번호
+                </label>
+                <input 
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 hover:border-red-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" 
+                    id="tel"
+                    name="tel" 
+                    :value="user.tel" 
+                    @input="transferPhoneNumberFormat($event)"
+                    autocomplete="on">
+            </div>
+        </div>
+        <div class="mt-6 space-y-3">
+            <div class="flex justify-end">
+                <button
+                    @click="onUserEditing"
+                    class="inline-flex justify-center rounded-md border border-transparent bg-blue-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-2"
+                >
+                    수정
+                </button>
+                <button
+                    @click="onUserDeleting"
+                    class="inline-flex justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-900 focus:ring-offset-2"
+                >
+                    회원 탈퇴
+                </button>
+              </div>
+        </div>
+    </div>
+</div>
