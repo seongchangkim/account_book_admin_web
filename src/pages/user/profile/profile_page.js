@@ -54,7 +54,7 @@ export default{
                 console.log(`id: ${this.id}`);
         
                 await axios.patch(
-                    `${axios.defaults.baseURL}api/user/profile/update/${this.id}`,
+                    `${axios.defaults.baseURL}api/profile/${this.id}`,
                     params,
                     {
                         headers: {
@@ -62,8 +62,6 @@ export default{
                         },
                     }
                 ).then((res) => {
-                    // console.log(`isEditSucess : ${JSON.stringify(res)}`);
-                    
                     if (res.data['success']) {
                         alert(`해당 사용자 정보가 수정되었습니다.`);
                         window.location.reload();
@@ -91,7 +89,7 @@ export default{
                     };
 
                     var res = await axios.patch(
-                        `${axios.defaults.baseURL}api/user/profile/update/${this.id}`,
+                        `${axios.defaults.baseURL}api/profile/${this.id}`,
                         params,
                         {
                             headers: {
@@ -110,9 +108,10 @@ export default{
         async onUserDeleting(){
             this.id = this.$route.params.id;
 
-            const res = await axios.delete(`${axios.defaults.baseURL}api/user/leave/${this.id}`);
+            const res = await axios.delete(`${axios.defaults.baseURL}api/user/${this.id}`);
             
             if(res.data['isSuccess']){
+                this
                 alert(`회원 탈퇴되었습니다.`);
                 this.$router.push('/login');
             }
@@ -121,7 +120,7 @@ export default{
     async beforeCreate(){
         this.id = this.$route.params.id;
 
-        const res = await axios.get(`${axios.defaults.baseURL}api/user/profile/${this.id}`);
+        const res = await axios.get(`${axios.defaults.baseURL}api/profile/${this.id}`);
 
         this.user = res.data;
     },

@@ -1,4 +1,5 @@
 import { mapState } from "vuex";
+import axios from "axios";
 
 export default{
     name: "NavBar",
@@ -7,9 +8,28 @@ export default{
     },
     methods: {
         toggleSidebar(){
-            // console.log('click');
-            // console.log(this.$store.state.dashBoardStore.sideBarOpen);
             this.$store.commit("toggleSideBar");
-        }
+        },
+        async logout(){
+            const user = this.$store.getters.getUser;
+
+            const param = {
+                "userId" : user.id
+            };
+
+            // console.log(`id : ${user["id"]}`);
+            try{
+                await axios.post(`${axios.defaults.baseURL}api/user/logout`, param, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                this.$store.commit("setUser", {});
+                this.$router.push("/login");
+            }catch(error){
+                console.error(`error : ${error}`);
+            }
+        },
     }
 }

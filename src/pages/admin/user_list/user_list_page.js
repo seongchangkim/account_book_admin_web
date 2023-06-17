@@ -1,7 +1,7 @@
 import axios from 'axios';
 import moment from 'moment';  
 
-const url = `${axios.defaults.baseURL}api/admin/user/list`;
+const url = `${axios.defaults.baseURL}api/user`;
 
 export default{
     data() {
@@ -84,7 +84,7 @@ export default{
         },
         // 페이징 처리 공통 메소드
         setPageInfo(res){
-            console.log(`res : ${JSON.stringify(res.data['content'])}`);
+            // console.log(`res : ${JSON.stringify(res.data['content'])}`);
             
             this.userList = res.data['content'];
             this.totalPage = res.data['totalPages'];

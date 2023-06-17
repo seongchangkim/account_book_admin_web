@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from "@/store/main";
+import axios from "axios";
 
 const routes = [
     { 
@@ -10,10 +11,28 @@ const routes = [
         name : "login", 
         path : "/login", 
         component: () => import("@/pages/user/login/login_page.vue"),
-        beforeEnter(to, from, next) {
+        async beforeEnter(to, from, next) {
             const user = store.state.userStore.user;
 
-            if (user.token !== undefined) {
+            const param = {
+                token: user.token,
+            };
+
+            const res = await axios.post(
+                `${axios.defaults.baseURL}api/user/auth`,
+                param,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            const isAuth = res.data["auth"];
+
+            console.log(`token : ${user.token}`)
+
+            if (isAuth) {
                 next({ name: 'dashBoardHome' })
             } else {
                 next()

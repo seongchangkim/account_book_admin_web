@@ -10,7 +10,7 @@ export default {
     },
     methods: {
         async login(){
-            console.log(`user : ${this.$store.getters.getUser}`);
+            // console.log(`user : ${this.$store.getters.getUser}`);
             let email = this.email;
             let password = this.password;
             
@@ -45,7 +45,7 @@ export default {
 
                         this.$store.commit("setUser", authRes.data);
 
-                            console.log("auth id : " + authRes.data["id"]);
+                            // console.log("auth id : " + authRes.data["id"]);
 
                         this.$router.push("/dashboard/home");
                     } else {

@@ -53,10 +53,10 @@ export default{
                     "role": this.user.role,
                 };
         
-                console.log(`id: ${this.id}`);
+                // console.log(`id: ${this.id}`);
         
                 await axios.patch(
-                    `${axios.defaults.baseURL}api/admin/user/edit/${this.id}`,
+                    `${axios.defaults.baseURL}api/user/${this.id}`,
                     params,
                     {
                         headers: {
@@ -96,7 +96,7 @@ export default{
                     };
 
                     var res = await axios.patch(
-                        `${axios.defaults.baseURL}api/admin/user/edit/${this.id}`,
+                        `${axios.defaults.baseURL}api/user/${this.id}`,
                         params,
                         {
                             headers: {
@@ -115,18 +115,19 @@ export default{
         async onUserDeleting(){
             this.id = this.$route.params.id;
 
-            const res = await axios.delete(`${axios.defaults.baseURL}api/user/leave/${this.id}`);
+            const res = await axios.delete(`${axios.defaults.baseURL}api/user/${this.id}`);
             
             if(res.data['isSuccess']){
+                this.$store.commit("setUser", {});
                 alert(`해당 사용자가 삭제되었습니다.`);
-                this.$router.go(-1);
+                this.$router.push("/login");
             }
         }
     },
     async beforeCreate(){
         this.id = this.$route.params.id;
 
-        const res = await axios.get(`${axios.defaults.baseURL}api/admin/user/detail/${this.id}`);
+        const res = await axios.get(`${axios.defaults.baseURL}api/user/${this.id}`);
 
         this.user = res.data;
     },
