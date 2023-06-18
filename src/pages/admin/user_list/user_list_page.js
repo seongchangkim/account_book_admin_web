@@ -26,6 +26,7 @@ export default{
         };
     },
     compute: {
+        // 날짜 형식
         dateFormat(date){
             console.log(moment().format("yyyy-MM-DD HH:mm:ss"));
             return moment(date).format("yyyy-MM-DD HH:mm:ss")
@@ -43,7 +44,7 @@ export default{
             this.setPageInfo(res);
         },
         // 페이지 선택
-        async getUserList(index){
+        async getUserListBySelectedPage(index){
             const res = await axios.get(`${url}?page=${index-1}${this.searchParam}`);
 
             this.setPageInfo(res);
@@ -64,6 +65,7 @@ export default{
             this.selectSearchCategoryValue = this.searchCategoryObj[key];
             this.isSearchCategoryShow = false;
         },
+        // 검색 카테고리 별로 회원 목록 검색 
         async onSearchKeyWord(keyword){
             if(this.selectSearchCategoryValue === ""){
                 alert("검색 카테고리를 선택하세요!");
@@ -74,6 +76,7 @@ export default{
 
             this.setPageInfo(res);
         },
+        // 회원 상세보기 페이지로 이동
         moveUserDetail(id){
             this.$router.push({
                 name: "userDetail",
@@ -83,9 +86,7 @@ export default{
             })
         },
         // 페이징 처리 공통 메소드
-        setPageInfo(res){
-            // console.log(`res : ${JSON.stringify(res.data['content'])}`);
-            
+        setPageInfo(res){            
             this.userList = res.data['content'];
             this.totalPage = res.data['totalPages'];
             this.isFirst = res.data["first"];

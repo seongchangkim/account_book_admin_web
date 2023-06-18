@@ -15,7 +15,7 @@ const routes = [
             const user = store.state.userStore.user;
 
             const param = {
-                token: user.token,
+                token: user.token !== undefined ? user.token : "",
             };
 
             const res = await axios.post(
@@ -30,7 +30,9 @@ const routes = [
 
             const isAuth = res.data["auth"];
 
-            console.log(`token : ${user.token}`)
+            // console.log(`res : ${JSON.stringify(res)}`);
+            // console.log(`token : ${user.token}`);
+            // console.log(`auth : ${isAuth}`);
 
             if (isAuth) {
                 next({ name: 'dashBoardHome' })

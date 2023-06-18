@@ -17,7 +17,6 @@ export default{
                 "userId" : user.id
             };
 
-            // console.log(`id : ${user["id"]}`);
             try{
                 await axios.post(`${axios.defaults.baseURL}api/user/logout`, param, {
                     headers: {

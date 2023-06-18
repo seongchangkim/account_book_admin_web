@@ -18,6 +18,7 @@ export default{
         isEmptyObject(obj) {
             return Object.keys(obj).length === 0 && obj.constructor === Object;
         },
+        // 프로필 사진 변경
         onChangeProfileImage(event){
             const file = event.target.files || event.dataTransfer.files
 
@@ -27,6 +28,7 @@ export default{
 
             this.user.profileUrl = URL.createObjectURL(this.file);
         },
+        // 전화번호 형식(mark 작업)
         transferPhoneNumberFormat(event){
             let phoneNumber = "";
             phoneNumber = event.target.value.replace(/[^0-9]/g, "");
@@ -53,30 +55,9 @@ export default{
                     "role": this.user.role,
                 };
         
-                // console.log(`id: ${this.id}`);
-        
-                await axios.patch(
-                    `${axios.defaults.baseURL}api/user/${this.id}`,
-                    params,
-                    {
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                    }
-                ).then((res) => {
-                    console.log(`isEditSucess : ${JSON.stringify(res)}`);
-                    
-                    if (res.data['editSuccess']) {
-                        alert(`해당 사용자 정보가 수정되었습니다.`);
-                        window.location.reload();
-                    }
-                })
-                .catch((e) => console.error(`e : ${e}`)).finally(() => console.log("finally"));
+                this.userEditingProcess(params);
             }else{
                 const storage = getStorage();
-                const fileName = this.user.profileUrl.slice(
-                    this.user.profileUrl.lastIndexOf("/")
-                );
                 const mountainsRef = ref(
                     storage,
                     `profiles/${this.id}/${this.file.name}`
@@ -84,7 +65,6 @@ export default{
                 uploadBytes(mountainsRef, this.file).then(async (snapshot) => {
                     const getUpLoadImageURL = await getDownloadURL(snapshot.ref);
 
-                    console.log(`path : ${snapshot.ref}`);
                     this.user.profile_image = snapshot.ref;
 
                     var params = {
@@ -95,15 +75,7 @@ export default{
                         "role": this.user.role,
                     };
 
-                    var res = await axios.patch(
-                        `${axios.defaults.baseURL}api/user/${this.id}`,
-                        params,
-                        {
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    );
+                    this.userEditingProcess(params);
 
                     if (res.data['editSuccess']) {
                         alert(`해당 사용자 정보가 수정되었습니다.`);
@@ -112,6 +84,7 @@ export default{
                 });
             }
         },
+        // 회원 삭제
         async onUserDeleting(){
             this.id = this.$route.params.id;
 
@@ -122,6 +95,23 @@ export default{
                 alert(`해당 사용자가 삭제되었습니다.`);
                 this.$router.push("/login");
             }
+        },
+        // 회원 수정 공통 처리 메소드
+        async userEditingProcess(params){
+            var res = await axios.patch(
+                `${axios.defaults.baseURL}api/user/${this.id}`,
+                params,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (res.data['editSuccess']) {
+                alert(`해당 사용자 정보가 수정되었습니다.`);
+                window.location.reload();
+            }  
         }
     },
     async beforeCreate(){

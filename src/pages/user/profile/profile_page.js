@@ -18,6 +18,7 @@ export default{
         isEmptyObject(obj) {
             return Object.keys(obj).length === 0 && obj.constructor === Object;
         },
+        // 프로필 이미지 변경
         onChangeProfileImage(event){
             const file = event.target.files || event.dataTransfer.files
 
@@ -27,6 +28,7 @@ export default{
 
             this.user.profileUrl = URL.createObjectURL(this.file);
         },
+        // 전화번호 형식
         transferPhoneNumberFormat(event){
             let phoneNumber = "";
             phoneNumber = event.target.value.replace(/[^0-9]/g, "");
@@ -41,6 +43,7 @@ export default{
                 this.user.tel = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
             }
         },
+        // 프로필 수정
         async onUserEditing() {
             this.id = this.$route.params.id;
 
@@ -51,23 +54,7 @@ export default{
                     "profileUrl": this.user.profileUrl,
                 };
         
-                console.log(`id: ${this.id}`);
-        
-                await axios.patch(
-                    `${axios.defaults.baseURL}api/profile/${this.id}`,
-                    params,
-                    {
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                    }
-                ).then((res) => {
-                    if (res.data['success']) {
-                        alert(`해당 사용자 정보가 수정되었습니다.`);
-                        window.location.reload();
-                    }
-                })
-                .catch((e) => console.error(`e : ${e}`)).finally(() => console.log("finally"));
+                this.profileEditingProcess(params);
             }else{
                 const storage = getStorage();
                 const fileName = this.user.profileUrl.slice(
@@ -88,23 +75,11 @@ export default{
                         "profileUrl": getUpLoadImageURL,
                     };
 
-                    var res = await axios.patch(
-                        `${axios.defaults.baseURL}api/profile/${this.id}`,
-                        params,
-                        {
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    );
-
-                    if (res.data['success']) {
-                        alert(`해당 사용자 정보가 수정되었습니다.`);
-                        window.location.reload();
-                    }  
+                    this.profileEditingProcess(params);
                 });
             }
         },
+        // 회원 탈퇴
         async onUserDeleting(){
             this.id = this.$route.params.id;
 
@@ -115,6 +90,23 @@ export default{
                 alert(`회원 탈퇴되었습니다.`);
                 this.$router.push('/login');
             }
+        },
+        // 프로필 수정 공통 처리 메소드
+        async profileEditingProcess(params){
+            var res = await axios.patch(
+                `${axios.defaults.baseURL}api/profile/${this.id}`,
+                params,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (res.data['success']) {
+                alert(`해당 사용자 정보가 수정되었습니다.`);
+                window.location.reload();
+            }  
         }
     },
     async beforeCreate(){
