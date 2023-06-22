@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+const url = `${axios.defaults.baseURL}api/user/${this.id}`;
+
 export default{
     data(){
         return{
@@ -43,6 +45,7 @@ export default{
                 this.user.tel = `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3, 7)}-${phoneNumber.slice(7, 11)}`;
             }
         },
+        // 회원 수정
         async onUserEditing() {
             this.id = this.$route.params.id;
 
@@ -76,11 +79,6 @@ export default{
                     };
 
                     this.userEditingProcess(params);
-
-                    if (res.data['editSuccess']) {
-                        alert(`해당 사용자 정보가 수정되었습니다.`);
-                        window.location.reload();
-                    }  
                 });
             }
         },
@@ -88,7 +86,7 @@ export default{
         async onUserDeleting(){
             this.id = this.$route.params.id;
 
-            const res = await axios.delete(`${axios.defaults.baseURL}api/user/${this.id}`);
+            const res = await axios.delete(url);
             
             if(res.data['isSuccess']){
                 this.$store.commit("setUser", {});
@@ -99,7 +97,7 @@ export default{
         // 회원 수정 공통 처리 메소드
         async userEditingProcess(params){
             var res = await axios.patch(
-                `${axios.defaults.baseURL}api/user/${this.id}`,
+                url,
                 params,
                 {
                     headers: {
@@ -117,7 +115,7 @@ export default{
     async beforeCreate(){
         this.id = this.$route.params.id;
 
-        const res = await axios.get(`${axios.defaults.baseURL}api/user/${this.id}`);
+        const res = await axios.get(url);
 
         this.user = res.data;
     },

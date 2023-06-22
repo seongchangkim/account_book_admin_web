@@ -30,10 +30,6 @@ const routes = [
 
             const isAuth = res.data["auth"];
 
-            // console.log(`res : ${JSON.stringify(res)}`);
-            // console.log(`token : ${user.token}`);
-            // console.log(`auth : ${isAuth}`);
-
             if (isAuth) {
                 next({ name: 'dashBoardHome' })
             } else {
