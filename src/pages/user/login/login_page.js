@@ -26,7 +26,8 @@ export default {
                     },
                 })
                 .then(async (res) => {
-                    if(res.data["role"] !== "ADMIN"){
+                    // console.log(`res : ${JSON.stringify(res)}`);
+                    if(res.data["role"] !== "ADMIN" && res.data["role"] === "null"){
                         alert("관리자 권한만 로그인할 수 있습니다!");
                         return;
                     }
@@ -44,8 +45,6 @@ export default {
                             });
 
                         this.$store.commit("setUser", authRes.data);
-
-                            // console.log("auth id : " + authRes.data["id"]);
 
                         this.$router.push("/dashboard/home");
                     } else {
