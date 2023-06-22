@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const url = `${axios.defaults.baseURL}api/user/${this.id}`;
-
 export default{
     data(){
         return{
@@ -86,7 +84,7 @@ export default{
         async onUserDeleting(){
             this.id = this.$route.params.id;
 
-            const res = await axios.delete(url);
+            const res = await axios.delete(`${axios.defaults.baseURL}api/user/${this.id}`);
             
             if(res.data['isSuccess']){
                 this.$store.commit("setUser", {});
@@ -97,7 +95,7 @@ export default{
         // 회원 수정 공통 처리 메소드
         async userEditingProcess(params){
             var res = await axios.patch(
-                url,
+                `${axios.defaults.baseURL}api/user/${this.id}`,
                 params,
                 {
                     headers: {
@@ -115,7 +113,7 @@ export default{
     async beforeCreate(){
         this.id = this.$route.params.id;
 
-        const res = await axios.get(url);
+        const res = await axios.get(`${axios.defaults.baseURL}api/user/${this.id}`);
 
         this.user = res.data;
     },
