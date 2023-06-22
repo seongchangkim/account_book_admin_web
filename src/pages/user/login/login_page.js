@@ -26,8 +26,7 @@ export default {
                     },
                 })
                 .then(async (res) => {
-                    // console.log(`res : ${JSON.stringify(res)}`);
-                    if(res.data["role"] !== "ADMIN" && res.data["role"] === "null"){
+                    if(res.data["role"] !== "ADMIN" && res.data["role"] !== null){
                         alert("관리자 권한만 로그인할 수 있습니다!");
                         return;
                     }
