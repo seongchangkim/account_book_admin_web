@@ -89,7 +89,7 @@ export default{
             if(res.data['isSuccess']){
                 this.$store.commit("setUser", {});
                 alert(`해당 사용자가 삭제되었습니다.`);
-                this.$router.push("/login");
+                this.$router.go(-1);
             }
         },
         // 회원 수정 공통 처리 메소드
