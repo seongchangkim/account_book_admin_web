@@ -9,8 +9,8 @@ export default {
         };
     },
     methods: {
+        // 로그인
         async login(){
-            // console.log(`user : ${this.$store.getters.getUser}`);
             let email = this.email;
             let password = this.password;
             
