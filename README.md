@@ -1,4 +1,4 @@
-# account_book_admin_web
+![login-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/d2cdbfcd-d20c-4bbd-b73a-8f7756cb3ce3)# account_book_admin_web
 <img width="1415" alt="account-book-admin-web" src="https://github.com/seongchangkim/account_book_admin_web/assets/74657556/3d771d27-96cc-4b56-ab52-e404c4aabad7">
 
 
@@ -23,14 +23,23 @@
 ### 1. 로그인
 - 로그인 페이지에서 이메일과 비밀번호를 입력하여 로그인 API를 POST방식으로 호출하여 입력한 이메일과 비밀번호를 들고 request해서 작동합니다. 그 다음에 DB에서 이메일으로 일치한 데이터를 조회하여 비밀번호를 암호화하여 DB에서 암호화된 비밀번호가 있는지 조회합니다. DB에서 이메일과 비밀번호가 둘 다 일치한 DB가 있으면 로그인 성공되어 홈 화면으로 이동함. 그렇지 않으면 상황별로 알림창을 띄우도록 합니다.
 
+![login-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/5c8263e4-6c99-4d25-a435-383e2be752e3)
+<p align="center">로그인 성공</p>
+
+![login-role-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/b0e6c8c9-eb08-44d9-bcbf-5e4c77fed1db)
+<p align="center">권한 로그인 오류창</p>
+
+![login-not-found-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/525f4ab3-7359-428d-ae06-d2106d8f74e0)
+<p align="center">이메일 및 비밀번호 불일치 오류창</p>
+
 ### 2. 로그아웃
 - 상단 네비게이션 바 부분에 있는 로그아웃 부분에 클릭하면 로그아웃 API를 POST방식으로 호출하여 회원 id를 들고 request한 뒤, DB안에 해당 회원 id를 찾아서 서버에서 token를 null 값으로 수정하도록 합니다. 서버에서 response 값을 받아서 웹 클라이언트에서 마지막으로 user 상태 저장소를 빈 객체로 초기화시키고 로그인 페이지로 이동함.
 ![logout-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/8583742a-b491-4c6c-a574-c8b4bf9a2c42)
 
 ### 4. 회원 상세보기, 회원 수정 및 회원 삭제
-<img src="https://user-images.githubusercontent.com/74657556/220316730-e103610f-068c-4b1d-8a40-3d9f01c9614c.jpeg" width="250" height="500">
-<p align="center">프로필 상세보기</p>
 
+![user-detail-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/66cb1754-75cd-4b42-8d78-ce7d7cfe2f24)
+<p align="center">회원 상세보기</p>
 
 https://user-images.githubusercontent.com/74657556/220317161-ee49de4f-f5a6-4675-ab85-858a0fc64e39.mp4
 <p align="center">프로필 정보 수정</p>
