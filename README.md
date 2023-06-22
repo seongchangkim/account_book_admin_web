@@ -1,9 +1,9 @@
-![login-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/d2cdbfcd-d20c-4bbd-b73a-8f7756cb3ce3)# account_book_admin_web
+
+# account_book_admin_web
+회원 기능(로그인, 로그아웃)이 있고 관리자 회원으로 로그인하여 회원 목록(검색, 페이징 처리)을 통해 회원을 관리할 수 있고 프로필 수정, 회원 탈퇴가능한 웹 클라이언트 서비스입니다.
+<br/><br/>
 <img width="1415" alt="account-book-admin-web" src="https://github.com/seongchangkim/account_book_admin_web/assets/74657556/3d771d27-96cc-4b56-ab52-e404c4aabad7">
 
-
-회원 기능(로그인, 로그아웃)이 있고 관리자 회원으로 로그인하여 회원 목록(검색, 페이징 처리)을 통해 회원을 관리할 수 있고 프로필 수정, 회원 탈퇴가능한 웹 클라이언트 서비스입니다.
-<br/>
 ● 제작기간 : 2023.5.26~2023.6.9, 2023.6.18(12일, 주말 제외)(1인 프로젝트)
 
 ### 개발 환경
@@ -36,6 +36,18 @@
 - 상단 네비게이션 바 부분에 있는 로그아웃 부분에 클릭하면 로그아웃 API를 POST방식으로 호출하여 회원 id를 들고 request한 뒤, DB안에 해당 회원 id를 찾아서 서버에서 token를 null 값으로 수정하도록 합니다. 서버에서 response 값을 받아서 웹 클라이언트에서 마지막으로 user 상태 저장소를 빈 객체로 초기화시키고 로그인 페이지로 이동함.
 ![logout-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/8583742a-b491-4c6c-a574-c8b4bf9a2c42)
 
+### 3. 회원 목록(feat. 페이지 처리 및 검색 기능)
+
+![page-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/0b4ae0f8-faa9-461c-a968-19e2db5b8fc2)
+<p align="center">페이지 처리</p>
+
+![search-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/00f7eb51-16c4-46b5-a85b-31a34f13699e)
+<p align="center">검색 기능</p>
+
+1). 회원 목록 : 회원 목록 페이지 들어가기 전에 회원 목록 api를 호출하여 웹 클라이언트에 response 값으로 페이지 처리에 필요한 값이나 회원 목록 데이터를 받아서 회원 목록 페이지에 렌더링합니다. 
+2). 페이지 처리 : 맨 밑에 페이지 처리 관련 UI가 있는데 회원 목록 갯수에 따라 페이지 수를 렌더링했습니다. 그 중에 <(이전 페이지) 누르면 이전 페이지로 이동하면서 이전 페이지에 대한 response값을 받으면서 회원 목록 페이지를 리렌더링을 하고 >(다음 페이지)로 누르면 다음 페이지에 대한 response값을 받으면서 회원 목록 페이지를 리렌더링을 합니다. 그리고 해당 페이지를 누르면 해당 페이지에 대한 response값을 받으면서 회원 목록 페이지를 리렌더링을 합니다. 그리고 처음 페이지로 이동하면 이전 페이지 아이콘이 없고 맨 마지막 페이지로 이동하면 다음 페이지 아이콘이 없도록 설정했습니다.
+3). 검색 기능 : 맨 오른쪽에 검색 UI가 있는데 검색 카테고리를 고르고 검색어를 입력하면 그에 대한 요청을 들고 회원 목록 api를 호출하여 그 검색 카테고리에 대한 데이터를 검색어를 비슷한 단어를 조회하는 다음에 웹 클라이언트에 reponse 값으로 페이지 처리에 필요한 값이나 회원 목록 데이터를 받아서 회원 목록 페이지에 리렌더링합니다. 
+
 ### 4. 회원 상세보기, 회원 수정 및 회원 삭제
 
 ![user-detail-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/66cb1754-75cd-4b42-8d78-ce7d7cfe2f24)
@@ -44,10 +56,26 @@
 https://user-images.githubusercontent.com/74657556/220317161-ee49de4f-f5a6-4675-ab85-858a0fc64e39.mp4
 <p align="center">프로필 정보 수정</p>
 
-<img src="https://user-images.githubusercontent.com/74657556/220350951-b6ea53ec-9429-42b7-a5b5-33f46befc233.gif" width="250" height="500">
-<p align="center">프로필 상세보기</p>
+![user-delete-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/53aa5496-4cff-4f8a-a7f1-8e4c4c8a34a6)
+<p align="center">회원 삭제</p>
 
 <br/>
-1). 회원 상세보기 : 회원 목록 페이지에 해당 회원 이름을 클릭하면 회원 id값을 라우터 파라미터로 들고 회원 상세보기 웹 페이지에 이동하여 렌더링합니다. 
-2). 프로필 정보 수정 : 프로필 상세보기 페이지에서 수정하고자 이름과 전화번호를 수정하여 프로필 수정 버튼을 클릭하면 프로필 수정 API를 호출하여 수정하고자 이름과 전화번호를 들고 request해서 작동함. 그리고 DB에서 해당 사용자를 조회해서 해당 사용자와 일치하는 데이터에 이름과 전화번호를 수정하고 updatedAt 컬럼을 해당 API를 호출했던 시점으로 수정됨. 그 다음에 프로필 정보 수정이 성공하면 프로필 정보 수정 알림창이 뜸. 그리고 프로필 정보 수정 알림창에 확인 버튼을 누르면 그 부분이 취소가 됨.(유효성 검사 기능도 있음.)
-3). 회원 탈퇴 : 프로필 상세보기 페이지에서 회원 탈퇴를 누르면 회원 탈퇴 API를 호출하여 해당 사용자 id를 들고 request해서 작동함. 그리고 DB에서 해당 사용자 id로 조회하여 해당 사용자와 일치하면 deletedAt를 해당 API를 호출했던 시점으로 저장되고 회원 탈퇴 처리가 성공하면 회원 탈퇴 알림창을 뜸. 회원 탈퇴 알림창에서 확인 버튼을 클릭하면 로그인 페이지로 이동됨.
+1). 회원 상세보기 : 회원 목록 페이지에 해당 회원 이름을 클릭하면 회원 id값을 라우터 파라미터로 들고 회원 상세보기 웹 페이지에 이동하여 렌더링합니다. <br />
+2). 프로필 정보 수정 : 프로필 상세보기 페이지에서 수정하고자 이름과 전화번호를 수정하여 수정 버튼을 클릭하면 프로필 수정 API를 호출하여 수정하고자 이름과 전화번호를 들고 request해서 작동함. 그리고 DB에서 해당 사용자를 조회해서 해당 사용자와 일치하는 데이터에 이름과 전화번호를 수정하고 updatedAt 컬럼을 해당 API를 호출했던 시점으로 수정됨. 그 다음에 프로필 정보 수정이 성공하면 프로필 정보 수정 알림창이 뜸. 그리고 프로필 정보 수정 알림창에 확인 버튼을 누르면 그 부분이 취소가 됨.(유효성 검사 기능도 있음.)<br />
+3). 회원 삭제 : 회원 상세보기 페이지에서 삭제를 누르면 회원 탈퇴 API를 호출하여 해당 사용자 id를 들고 request해서 작동함. 그리고 DB에서 해당 사용자 id로 조회하여 해당 사용자와 일치하면 조회된 데이터를 삭제되어 회원 삭제 처리가 성공하면 회원 삭제 알림창을 뜸. 회원 삭제 알림창에서 확인 버튼을 클릭하면 로그인 페이지로 이동됨.
+
+### 5. 프로필 상세보기, 프로필 수정 및 회원 탈퇴
+
+![profile-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/e1f9348c-c0b7-42ce-bfec-7bd360f9064a)
+<p align="center">프로필 상세보기</p>
+
+![profile-edit-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/4073f34a-4fed-4315-a30b-cab5fc914242)
+<p align="center">프로필 수정</p>
+
+![user-leave-ezgif com-crop](https://github.com/seongchangkim/account_book_admin_web/assets/74657556/14b26490-e2dc-4a54-8dd2-6479f99199ca)
+<p align="center">회원 삭제</p>
+
+<br/>
+1). 프로필 상세보기 : 사이드바에 My 프로필을 클릭하면 회원에 대한 상태 저장소에서 가져온 회원 id값을 라우터 파라미터값으로 들고 프로필 상세보기 웹 페이지에 이동하여 렌더링합니다. <br />
+2). 프로필 수정 : 프로필 상세보기 웹 페이지에서 수정하고자 프로필 이미지, 이름 또는 전화번호를 수정하여 수정 버튼을 클릭하면 프로필 수정 API를 호출하여 수정하고자 프로필 이미지 경로, 이름 및 전화번호를 들고 request해서 작동함. 그리고 DB에서 해당 사용자를 조회해서 해당 사용자와 일치하는 데이터에 프로필 이미지 경로, 이름 및 전화번호를 수정하고 updatedAt 컬럼을 해당 API를 호출했던 시점으로 수정됨. 그 다음에 프로필 정보 수정이 성공하면 프로필 정보 수정 알림창이 뜸. 그리고 프로필 정보 수정 알림창에 확인 버튼을 누르면 새로고침됩니다.<br />
+3). 회원 탈퇴 : 프로필 상세보기 웹 페이지에서 회원 탈퇴를 누르면 회원 탈퇴 API를 호출하여 해당 사용자 id를 들고 request해서 작동함. 그리고 DB에서 해당 사용자 id로 조회하여 해당 사용자와 일치하면 조회된 데이터를 삭제되어 회원 탈퇴 처리가 성공하면 회원 탈퇴 알림창을 뜸. 회원 탈퇴 알림창에서 확인 버튼을 클릭하면 로그인 페이지로 이동됨.
