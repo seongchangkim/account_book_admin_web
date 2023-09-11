@@ -31,9 +31,9 @@ const routes = [
             const isAuth = res.data["auth"];
 
             if (isAuth) {
-                next({ name: 'dashBoardHome' })
+                next({ name: 'dashBoardHome' });
             } else {
-                next()
+                next();
             }
         }
     },
